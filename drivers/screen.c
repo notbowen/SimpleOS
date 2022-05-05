@@ -22,6 +22,7 @@ void clear_screen() {
     // LETS GO IT WORKS :OOOOO
     unsigned char* v_mem = (unsigned char*) VIDEO_MEMORY;
 
+    // Loop thru every row and col and set it to ' '
     for (int row = 0; row < MAX_ROWS; row++) {
         for (int col = 0; col < MAX_COLS; col++) {
             int index = getIndex(getPos(row, col));
@@ -31,10 +32,11 @@ void clear_screen() {
         }
     }
 
+    // Move cursor to start of screen
     move_cursor(0);
 }
 
-// Prints a char at a given row and col
+// Prints a char at current cursor location
 // Usage: tprint_char(char)
 void tprint_char(char c) {
     // Calculate pos and index
@@ -104,6 +106,7 @@ int getIndex(int pos) {
     return pos * 2;
 }
 
+// Gets the pos value from a given row and col
 int getPos(int row, int col) {
     return (row * MAX_COLS) + col;
 }
