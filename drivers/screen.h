@@ -14,9 +14,6 @@
 /* Colors */
 #define BLACK_ON_WHITE  0x0F
 
-/* More stuff */
-#define uint16_t unsigned short
-
 /* Public Functions */
 void clear_screen();
 void tprint_char(char c);

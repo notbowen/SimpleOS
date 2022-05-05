@@ -1,6 +1,6 @@
 /*
 Notes: 
-1. Conversion from pos to actual index: (pos*2) + 1 
+1. Conversion from pos to actual index: pos*2
    - Pos starts from 0
 2. index: character data, index + 1: color data
 */
@@ -8,13 +8,11 @@ Notes:
 #include "ports.h"
 #include "screen.h"
 
-#define uint16_t unsigned short
-
 /* Function Decleration */
-void move_cursor(unsigned short pos);
-uint16_t getPos(uint16_t row, uint16_t col);
-uint16_t getIndex(uint16_t pos);
-uint16_t get_cursor();
+void move_cursor(int pos);
+int getPos(int row, int col);
+int getIndex(int pos);
+int get_cursor();
 
 /* Public Functions */
 
@@ -24,11 +22,12 @@ void clear_screen() {
     // LETS GO IT WORKS :OOOOO
     unsigned char* v_mem = (unsigned char*) VIDEO_MEMORY;
 
-    for (uint16_t row = 0; row < MAX_ROWS; row++) {
-        for (uint16_t col = 0; col < MAX_COLS; col++) {
-            uint16_t index = getIndex(getPos(row, col));
+    for (int row = 0; row < MAX_ROWS; row++) {
+        for (int col = 0; col < MAX_COLS; col++) {
+            int index = getIndex(getPos(row, col));
+
             v_mem[index] = ' ';
-            v_mem[++index]= BLACK_ON_WHITE;  // Index + 1 doesn't work, ++ works dk why
+            v_mem[++index] = BLACK_ON_WHITE;
         }
     }
 
@@ -39,8 +38,8 @@ void clear_screen() {
 // Usage: tprint_char(char)
 void tprint_char(char c) {
     // Calculate pos and index
-    uint16_t pos = get_cursor();
-    uint16_t index = getIndex(pos);
+    int pos = get_cursor();
+    int index = getIndex(pos);
 
     // Get vidmem
     unsigned char* v_mem = (unsigned char*) VIDEO_MEMORY;
@@ -74,18 +73,16 @@ void tprint_char(char c) {
 }
 
 // Prints a string at current cursor location
-void tprint(char msg[]) {
-    msg++;
-
-    while (*msg) {
-        tprint_char(*msg);
-        msg++;
+void tprint(char* msg) {
+    int i = 0;
+    while (msg[i] != '\0') {
+        tprint_char(msg[i++]);
     }
 }
 
 /* Private Functions */
 // Moves cursor to specified pos
-void move_cursor(uint16_t pos) {
+void move_cursor(int pos) {
     outb(CMD_PORT, HIGH_BYTE);
     outb(DATA_PORT, ((pos >> 8) & 0x00FF));
     outb(CMD_PORT, LOW_BYTE);
@@ -93,9 +90,9 @@ void move_cursor(uint16_t pos) {
 }
 
 // Returns the pos of cursor
-uint16_t get_cursor() {
+int get_cursor() {
     outb(CMD_PORT, HIGH_BYTE);
-    uint16_t pos = inb(DATA_PORT) << 8;
+    int pos = inb(DATA_PORT) << 8;
     outb(CMD_PORT, LOW_BYTE);
     pos += inb(DATA_PORT);
 
@@ -103,10 +100,10 @@ uint16_t get_cursor() {
 }
 
 // Gets the raw memory index from pos
-uint16_t getIndex(uint16_t pos) {
-    return (pos * 2) + 1;
+int getIndex(int pos) {
+    return pos * 2;
 }
 
-uint16_t getPos(uint16_t row, uint16_t col) {
+int getPos(int row, int col) {
     return (row * MAX_COLS) + col;
 }
