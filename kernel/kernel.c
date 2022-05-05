@@ -10,4 +10,7 @@ void main() {
     for(int i = 0; i < 5; i++) {
         tprint("Scroll test\n");
     }
+
+    tprint_char('\n');
+    tprint_char('\n');
 }

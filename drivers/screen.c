@@ -68,8 +68,21 @@ void tprint_char(char c) {
 
     // Scroll screen down
     if (pos >= MAX_ROWS * MAX_COLS) {
-        pos = 0;
-        // TODO: Handle Scrolling
+        // Move lines 1 up
+        for (int i = 1; i < MAX_ROWS; i++) {
+            memory_copy(getIndex(getPos(i, 0)) + VIDEO_MEMORY, getIndex(getPos(i - 1, 0)) + VIDEO_MEMORY, MAX_COLS);
+        }
+
+        // Blank last line
+        for (int col = 0; col < MAX_COLS; col++) {
+            index = getIndex(getPos(MAX_ROWS - 1, col));
+            v_mem[index] = ' ';
+            v_mem[++index] = BLACK_ON_WHITE;
+        }
+
+        // Move cursor to start of last line
+        move_cursor(getPos(MAX_ROWS - 1, 0));
+        return;
     }
 
     // Update cursor position
