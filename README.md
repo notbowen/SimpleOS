@@ -18,7 +18,7 @@ Print function did not pass the strings correctly, and the strings did not show 
 
 **Fix:**
 
-Turns out, I compiled the program in 64 bits in an attempt to override a linker error, which stated that the i386 format was not compatible with x86_64. This was resolved by linking with the option -m elf_i386, and compiling C sources with the argument -fno-pie.
+Turns out, I compiled the program in 64 bits in an attempt to "fix" a linker error, which stated that the i386 format was not compatible with x86_64. This was resolved by linking with the option `-m elf_i386`, and compiling C sources with the argument `-fno-pie`.
 
 ![image](https://user-images.githubusercontent.com/85286288/166937887-2acca694-ad27-49a9-bf6f-15b44c6ec9a0.png)
 ![image](https://user-images.githubusercontent.com/85286288/166937914-f7a4d056-d467-4e49-a37f-a351b347941c.png)
