@@ -3,5 +3,11 @@
 void main() {
     clear_screen();
 
-    tprint("Hello World!\n");
+    for (int i = 0; i < MAX_ROWS; i++) {
+        tprint("Hello World!\n");
+    }
+
+    for(int i = 0; i < 5; i++) {
+        tprint("Scroll test\n");
+    }
 }

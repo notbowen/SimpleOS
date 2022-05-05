@@ -7,6 +7,7 @@ Notes:
 
 #include "ports.h"
 #include "screen.h"
+#include "../kernel/utils.h"
 
 /* Function Decleration */
 void move_cursor(int pos);
@@ -65,9 +66,10 @@ void tprint_char(char c) {
             break;
     }
 
-    // Handle overflow
+    // Scroll screen down
     if (pos >= MAX_ROWS * MAX_COLS) {
-        pos = 0;  // TODO: Handle scrolling
+        pos = 0;
+        // TODO: Handle Scrolling
     }
 
     // Update cursor position
