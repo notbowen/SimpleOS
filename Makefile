@@ -3,6 +3,9 @@ HEADERS = $(wildcard kernel/*.h drivers/*.h)
 
 OBJ = $(C_SOURCES:.c=.o)
 
+C_FLAGS = -fno-pie -ggdb -Wall -Wextra -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -ffreestanding
+# -Werror
+
 os-image.bin: boot/boot.bin kernel.bin
 	cat $^ > os-image.bin
 
@@ -20,7 +23,7 @@ debug: os-image.bin kernel.elf
 	qemu-system-i386 -fda os-image.bin -gdb tcp::1234 -S
 
 %.o: %.c ${HEADERS}
-	gcc -fno-pie -ggdb -m32 -ffreestanding -c $< -o $@
+	gcc $(C_FLAGS) -c $< -o $@
 
 %.o: %.asm
 	nasm $< -f elf -o $@
