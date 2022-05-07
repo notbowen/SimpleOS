@@ -1,14 +1,13 @@
 #include "../drivers/screen.h"
-#include "../kernel/utils.h"
+#include "../libc/utils.h"
+#include "../cpu/isr.h"
+#include "../cpu/idt.h"
 
 void main() {
     clear_screen();
+    isr_install();
 
-    for (int i = 0; i < (MAX_ROWS + 5); i++) {
-        char output[255];
-        tprint("Line ");
-        int_to_char(i, output);
-        tprint(output);
-        tprint("\n");
-    }
+    // Test interrupt
+    asm volatile ("int $2");    
+    asm volatile ("int $3");
 }

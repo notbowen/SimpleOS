@@ -7,7 +7,7 @@ Notes:
 
 #include "ports.h"
 #include "screen.h"
-#include "../kernel/utils.h"
+#include "../libc/utils.h"
 
 /* Function Decleration */
 void move_cursor(int pos);
