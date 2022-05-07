@@ -70,7 +70,7 @@ void tprint_char(char c) {
     if (pos >= MAX_ROWS * MAX_COLS) {
         // Move lines 1 up
         for (int i = 1; i < MAX_ROWS; i++) {
-            memory_copy(getIndex(getPos(i, 0)) + VIDEO_MEMORY, getIndex(getPos(i - 1, 0)) + VIDEO_MEMORY, MAX_COLS);
+            memory_copy((char*) getIndex(getPos(i, 0)) + VIDEO_MEMORY, (char*) getIndex(getPos(i - 1, 0)) + VIDEO_MEMORY, MAX_COLS * 2);
         }
 
         // Blank last line
