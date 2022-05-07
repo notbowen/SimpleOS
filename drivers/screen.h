@@ -1,3 +1,7 @@
+/* Header Guards */
+#ifndef SCREEN_H
+#define SCREEN_H
+
 /* The I/O ports */
 #define CMD_PORT        0x3D4
 #define DATA_PORT       0x3D5
@@ -18,3 +22,5 @@
 void clear_screen();
 void tprint_char(char c);
 void tprint(char str[]);
+
+#endif
