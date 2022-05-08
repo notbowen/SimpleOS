@@ -1,13 +1,11 @@
 #include "../drivers/screen.h"
-#include "../libc/utils.h"
 #include "../cpu/isr.h"
-#include "../cpu/idt.h"
+#include "../cpu/timer.h"
 
 void main() {
     clear_screen();
     isr_install();
 
-    // Test interrupt
-    asm volatile ("int $2");    
-    asm volatile ("int $3");
+    asm volatile("sti");  // Enable interrupts
+    init_timer(30);
 }
