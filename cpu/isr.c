@@ -131,9 +131,7 @@ void register_interrupt_handler(u8 n, isr_t handler) {
 // IRQ Handler
 void irq_handler(registers_t r) {
     // After every interrupt we much ACK it
-    if (r.int_no > 40) {
-        outb(0xA0, 0x20);
-    }
+    if (r.int_no > 40) outb(0xA0, 0x20);
 
     outb(0x20, 0x20);
 
