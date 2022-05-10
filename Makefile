@@ -3,24 +3,24 @@ HEADERS = $(wildcard kernel/*.h drivers/*.h libc/*.h cpu/*.h)
 
 OBJ = $(C_SOURCES:.c=.o cpu/interrupt.o)
 
-C_FLAGS = -fno-pie -ggdb -Wall -Wextra -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -ffreestanding
+C_FLAGS = -ggdb -ffreestanding -Wall -Wextra -fno-exceptions -fno-pie -m32
 # -Werror
 
 os-image.bin: boot/boot.bin kernel.bin
 	cat $^ > os-image.bin
 
 kernel.bin: boot/kernel_entry.o ${OBJ}
-	ld -m elf_i386 -o $@ -Ttext 0x1000 $^ --oformat binary -entry main
+	ld -nostdlib -nodefaultlibs -m elf_i386 -s -o $@ -Ttext 0x1000 $^ --oformat binary -entry main
 
 # For debugging
 kernel.elf: boot/kernel_entry.o ${OBJ}
-	ld -m elf_i386 -o $@ -Ttext 0x1000 $^ -entry main
+	ld -nostdlib -nodefaultlibs -m elf_i386 -s -o $@ -Ttext 0x1000 $^ -entry main
 
 run: os-image.bin
 	qemu-system-i386 -fda os-image.bin
 
 debug: os-image.bin kernel.elf
-	qemu-system-i386 -fda os-image.bin -gdb tcp::1234 -S
+	qemu-system-i386 -fda os-image.bin -d guest_errors,int -gdb tcp::1234 -S
 
 %.o: %.c ${HEADERS}
 	gcc $(C_FLAGS) -c $< -o $@

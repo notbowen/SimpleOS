@@ -113,7 +113,7 @@ char* exception_messages[] = {
 // Handle interrupt
 void isr_handler(registers_t r) {
     tprint("Received interrupt: ");
-    char s[3];
+    char s[4];
     int_to_char(r.int_no, s);
     tprint(s);
     tprint("\n");
