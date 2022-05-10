@@ -21,13 +21,14 @@ void init_keyboard() {
 }
 
 // Lookup scancode to char and print to screen
+// TODO: Handle special keys such as TAB, BCKSPACE, etc
 void tprint_scancode(u8 scancode) {
     switch (scancode) {
         case 0x0:
             tprint("ERROR");
             break;
         case 0x1:
-            tprint("ESC");
+            tprint(" ESC ");
             break;
         case 0x2:
             tprint("1");
