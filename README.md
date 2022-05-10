@@ -2,7 +2,7 @@
 Simple OS, does nothing.
 
 ## Planned Features
-- [x] Print to screen        
+✅ Print to screen        
 - [ ] Interactive shell
 - [ ] Snek Game
 - [ ] File System (Maybe?)
