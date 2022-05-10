@@ -2,11 +2,11 @@
 Simple OS, does nothing.
 
 ## Planned Features
-1. Print to screen
-2. Interactive shell
-3. Snek Game
-4. File System (Maybe?)
-5. Read/Write files?
+1. Print to screen        -[x]
+2. Interactive shell      -[]
+3. Snek Game              -[]
+4. File System (Maybe?)   -[]
+5. Read/Write files?      -[]
 
 ## Bugs Encountered and how it was fixed
 ### 1. Printing not working correctly.
