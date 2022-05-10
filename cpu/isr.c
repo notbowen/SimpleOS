@@ -130,13 +130,20 @@ void register_interrupt_handler(u8 n, isr_t handler) {
 
 // IRQ Handler
 void irq_handler(registers_t r) {
-    // After every interrupt we much ACK it
-    if (r.int_no > 40) outb(0xA0, 0x20);
-
-    outb(0x20, 0x20);
-
     if (interrupt_handlers[r.int_no] != 0) {
         isr_t handler = interrupt_handlers[r.int_no];
         handler(r);
     }
+
+    // After every interrupt we much ACK it
+    if (r.int_no > 40) outb(0xA0, 0x20);
+    outb(0x20, 0x20);
+
+    // if (r.int_no == IRQ1) {
+    //     u8 sc = inb(0x60);
+    //     char string_sc[8];
+    //     int_to_char(sc, string_sc);
+    //     tprint(string_sc);
+    //     tprint("\n");
+    // }
 }
