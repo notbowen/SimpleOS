@@ -24,3 +24,14 @@ Turns out, I compiled the program in 64 bits in an attempt to "fix" a linker err
 ![image](https://user-images.githubusercontent.com/85286288/166937914-f7a4d056-d467-4e49-a37f-a351b347941c.png)
 
 (Got stuck on this for 1 week :/)
+
+### 2. Keyboard inputs causing exception
+**Problem:**
+Even after fixing it, I am still not really sure what caused this problem, but after adding around 20 keyboard switch-cases, the system started calling interrupt 0x05, which is the Bound Range Exceeded interrupt.
+
+![image](https://user-images.githubusercontent.com/85286288/167602756-e71897cf-6f51-4044-b81d-c29168de1d8c.png)
+
+**Fix:**
+For some reason, after adding `-nostdlib` and `-nodefaultlibs` to the linker command, the issue resolved itself. If I ever manage to figure out why it occured I'll come back and update this.
+
+![image](https://user-images.githubusercontent.com/85286288/167602970-01fd4803-f7a2-4560-86c9-2834014c4d97.png)
