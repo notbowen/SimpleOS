@@ -3,10 +3,10 @@ Simple OS, does nothing.
 
 ## Planned Features
 ✅ Print to screen        
-- [ ] Interactive shell
-- [ ] Snek Game
-- [ ] File System (Maybe?)
-- [ ] Read/Write files?
+:x: Interactive shell
+:x: Snek Game
+:x: File System (Maybe?)
+:x: Read/Write files?
 
 ## Bugs Encountered and how it was fixed
 ### 1. Printing not working correctly.
