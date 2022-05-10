@@ -8,8 +8,7 @@ void main() {
     isr_install();
 
     asm volatile("sti");  // Enable interrupts
-    // init_timer(30);
 
+    init_timer(50);
     init_keyboard();
-
 }

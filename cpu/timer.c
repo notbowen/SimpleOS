@@ -9,12 +9,14 @@ u32 tick = 0;
 
 static void timer_callback(registers_t regs) {
     tick++;
-    tprint("Tick: ");
 
-    char tick_str[256];
-    int_to_char(tick, tick_str);
-    tprint(tick_str);
-    tprint("\n");
+    /* To check if tick works */
+    // tprint("Tick: ");
+
+    // char tick_str[256];
+    // int_to_char(tick, tick_str);
+    // tprint(tick_str);
+    // tprint("\n");
 }
 
 // Initialises timer at specified frequency
