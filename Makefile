@@ -19,8 +19,9 @@ kernel.elf: boot/kernel_entry.o ${OBJ}
 run: os-image.bin
 	qemu-system-i386 -fda os-image.bin
 
+# TODO: Fix debugggin
 debug: os-image.bin kernel.elf
-	qemu-system-i386 -fda os-image.bin -d guest_errors,int -gdb tcp::1234 -S
+	qemu-system-i386 -fda os-image.bin -gdb tcp::1234 -S
 
 %.o: %.c ${HEADERS}
 	gcc $(C_FLAGS) -c $< -o $@

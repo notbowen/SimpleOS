@@ -50,19 +50,25 @@ static void keyboard_callback(registers_t regs) {
     }
 
     if (scancode == BACKSPACE) {
-        tprint_backspace();
-        back(key_buffer);
+        // Move behind if there is still stuff in keybuffer (to prevent erasing terminal output)
+        if (strlen(key_buffer) > 0) {
+            tprint_backspace();
+            back(key_buffer);
+        }
+        return;
     }
 
     if (scancode == ENTER) {
         tprint("\n");
         shell_input(key_buffer);
         key_buffer[0] = '\0';        // Reset keybuffer
+        return;
     } else {
         char letter = sc_ascii[(int)scancode];
         char str[2] = {letter, '\0'};
         append(key_buffer, letter);
         tprint(str);
+        return;
     }
 
     // Bypass unused param warning

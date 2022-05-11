@@ -57,6 +57,21 @@ void tprint_char(char c) {
             pos -= (pos % MAX_COLS);
 
             break;
+
+        case 0x08:
+            // Backspace
+            v_mem[index-2] = ' ';
+            v_mem[index-1] = BLACK_ON_WHITE;
+
+            // If cursor is not at start of screen, move pos back by 1
+            if (pos > 0) {
+                pos--;
+            }
+
+            // Set cursor
+            move_cursor(pos);
+
+            break;
     
         default:
             // Write to vid mem
@@ -91,15 +106,11 @@ void tprint_char(char c) {
 }
 
 // Prints a backspace
+// TODO: Fix this
 void tprint_backspace() {
-    tprint(0x08);
+    tprint_char(0x08);
 
-    // Move cursor back 2 spaces (as tprint advances cursor by 1)
-    int pos = get_cursor();
-    for (int i = 0; i < 2, pos > 0; i++, pos--);
-
-    // Set cursor
-    move_cursor(pos);
+    
 }
 
 // Prints a string at current cursor location
