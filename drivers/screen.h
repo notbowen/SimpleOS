@@ -21,6 +21,7 @@
 /* Public Functions */
 void clear_screen();
 void tprint_char(char c);
+void tprint_backspace();
 void tprint(char str[]);
 
 #endif

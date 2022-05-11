@@ -7,7 +7,8 @@ Notes:
 
 #include "ports.h"
 #include "screen.h"
-#include "../libc/utils.h"
+#include "../libc/mem.h"
+#include "../libc/string.h"
 
 /* Function Decleration */
 void move_cursor(int pos);
@@ -86,6 +87,18 @@ void tprint_char(char c) {
     }
 
     // Update cursor position
+    move_cursor(pos);
+}
+
+// Prints a backspace
+void tprint_backspace() {
+    tprint(0x08);
+
+    // Move cursor back 2 spaces (as tprint advances cursor by 1)
+    int pos = get_cursor();
+    for (int i = 0; i < 2, pos > 0; i++, pos--);
+
+    // Set cursor
     move_cursor(pos);
 }
 
