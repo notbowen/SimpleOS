@@ -1,12 +1,5 @@
-/* File to store all frequently used functions */
-#include "utils.h"
-
-// Copies the data from src to dest
-void memory_copy(char* src, char* dest, int no_bytes) {
-    for (int i = 0; i < no_bytes; i++) {
-        *(dest + i) = *(src + i);
-    }
-}
+/* File to store all string related functions */
+#include "string.h"
 
 // Converts from int to char to be printed out
 // Modifies caller defined char array
@@ -35,6 +28,28 @@ void reverse(char str[]) {
     }
 }
 
+// Appends to char array
+void append(char arr[], char c) {
+    int len = strlen(arr);
+    arr[len] = c;
+    arr[len+1] = '\0';
+}
+
+// Removes end of char array
+void back(char arr[]) {
+    int len = strlen(arr);
+    arr[len-1] = '\0';
+}
+
+// Slices string from start to end
+void slice(char str[], char out[], int start, int end) {
+    int j = 0;
+    for (int i = start; i <= end; i++) {
+        out[j++] = str[i];
+    }
+    out[j] = '\0';
+}
+
 // Get length of string
 int strlen(char str[]) {
     int i = 0;
@@ -43,4 +58,17 @@ int strlen(char str[]) {
     }
 
     return i;
+}
+
+// Compares if strings are equal, returns 0 if yes
+// Returns -ve if s1<s2, returns +ve if s1>s2
+int strcmp(char s1[], char s2[]) {
+    int i;
+    for (i = 0; s1[i] == s2[i]; i++) {
+        if (s1[i] == '\0') {
+            return 0;
+        }
+    }
+
+    return s1[i] - s2[i];
 }

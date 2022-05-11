@@ -1,6 +1,7 @@
 /* IDT Functions */
 #include "idt.h"
-#include "../libc/utils.h"
+#include "../libc/mem.h"
+#include "../libc/string.h"
 
 // Setup nth idt gate at addr handler
 void set_idt_gate(int n, u32 handler) {

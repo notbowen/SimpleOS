@@ -1,14 +1,19 @@
 /* Uses the PIT to see how much time has elapsed */
 #include "timer.h"
 #include "../drivers/screen.h"
-#include "../libc/utils.h"
-#include "isr.h"
 #include "../drivers/ports.h"
+#include "../libc/mem.h"
+#include "../libc/string.h"
+#include "../libc/function.h"
+#include "isr.h"
 
 u32 tick = 0;
 
 static void timer_callback(registers_t regs) {
     tick++;
+
+    // Bypass unused param warning
+    UNUSED(regs);
 
     /* To check if tick works */
     // tprint("Tick: ");

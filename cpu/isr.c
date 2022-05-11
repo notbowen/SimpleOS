@@ -1,8 +1,13 @@
 #include "isr.h"
 #include "idt.h"
+#include "timer.h"
+
 #include "../drivers/ports.h"
 #include "../drivers/screen.h"
-#include "../libc/utils.h"
+#include "../drivers/keyboard.h"
+
+#include "../libc/mem.h"
+#include "../libc/string.h"
 
 isr_t interrupt_handlers[256];
 
@@ -146,4 +151,11 @@ void irq_handler(registers_t r) {
     //     tprint(string_sc);
     //     tprint("\n");
     // }
+}
+
+// Installs IRQ
+void irq_install() {
+    asm volatile("sti");
+    init_timer(50);         // IRQ0
+    init_keyboard();        // IRQ1
 }
