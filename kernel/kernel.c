@@ -17,13 +17,17 @@ void shell_input(char* input) {
         asm volatile("hlt");
     }
 
-    char echo[4];
-    slice(input, echo, 0, 3);
-    if (strcmp(echo, "ECHO") == 0) {
+    char cmd[4];
+    slice(input, cmd, 0, 3);
+    if (strcmp(cmd, "ECHO") == 0) {
         char output[256];
         slice(input, output, 5, strlen(input));
         tprint(output);
-    }
+    } else if (strcmp(cmd, "HELP") == 0) {
+        tprint("===== HELP =====\n");
+        tprint("1. ECHO {MSG}: PRINTS {MSG} TO SCREEN\n");
+        tprint("2. END: STOPS THE CPU");
+    } 
 
     else {
         tprint("Couldn't find command \"");

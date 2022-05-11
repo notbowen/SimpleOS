@@ -48,8 +48,8 @@ void tprint_char(char c) {
     // Get vidmem
     unsigned char* v_mem = (unsigned char*) VIDEO_MEMORY;
 
-    // Handle \n
     switch (c) {
+        // Handle \n
         case '\n':
             // Move down 1 row
             pos += MAX_COLS;
@@ -58,8 +58,8 @@ void tprint_char(char c) {
 
             break;
 
+        // Handle backspace
         case 0x08:
-            // Backspace
             v_mem[index-2] = ' ';
             v_mem[index-1] = BLACK_ON_WHITE;
 
