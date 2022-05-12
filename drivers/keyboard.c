@@ -23,7 +23,7 @@ void tprint_scancode(u8 scancode);
 
 static int isShift = 0;
 
-static char key_buffer[256];
+static char key_buffer[1024];
 
 // Character Array
 #define SC_MAX    57
@@ -57,7 +57,7 @@ static void keyboard_callback(registers_t regs) {
     // Scancode from keyboard is in 0x60
     u8 scancode = inb(0x60);
 
-    // Handle input
+    // Handle special keys
     if (scancode == LSHIFT || scancode == RSHIFT) {
         isShift = 1;
         return;
@@ -79,12 +79,19 @@ static void keyboard_callback(registers_t regs) {
         return;
     }
 
+    // Handle \n
     if (scancode == ENTER) {
         tprint("\n");
         shell_input(key_buffer);
         key_buffer[0] = '\0';        // Reset keybuffer
         return;
+    } 
+
+    // Prevent key buffer overflow
+    if (strlen(key_buffer) >= 1023) {
+        return;
     } else {
+        // Handle normal keys
         char letter;
         if (isShift == 0) {
             letter = sc_lower[(int)scancode];
