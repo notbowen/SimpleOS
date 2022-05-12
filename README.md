@@ -8,7 +8,7 @@ Simple OS, does nothing.
 ## Planned Features
 ✅ Print to screen
 
-:x: Interactive shell
+✅ Interactive shell
 
 :x: Snek Game
 
