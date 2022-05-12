@@ -7,6 +7,7 @@ Notes:
 
 #include "ports.h"
 #include "screen.h"
+
 #include "../libc/mem.h"
 #include "../libc/string.h"
 
@@ -106,11 +107,8 @@ void tprint_char(char c) {
 }
 
 // Prints a backspace
-// TODO: Fix this
 void tprint_backspace() {
-    tprint_char(0x08);
-
-    
+    tprint_char(0x08);  
 }
 
 // Prints a string at current cursor location
