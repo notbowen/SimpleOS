@@ -18,6 +18,10 @@ void tprint_scancode(u8 scancode);
 // Variables
 #define BACKSPACE 0x0E
 #define ENTER     0x1C
+#define LSHIFT    0x2A
+#define RSHIFT    0x36
+
+static int isShift = 0;
 
 static char key_buffer[256];
 
@@ -32,12 +36,20 @@ const char* sc_name[] = {
     "/", "RShift", "Keypad *", "LAlt", "Spacebar"
 };
 
-const char sc_ascii[] = { 
+const char sc_lower[] = { 
     '?', '?', '1', '2', '3', '4', '5', '6',     
-    '7', '8', '9', '0', '-', '=', '?', '?', 'Q', 'W', 'E', 'R', 'T', 'Y', 
-    'U', 'I', 'O', 'P', '[', ']', '?', '?', 'A', 'S', 'D', 'F', 'G', 
-    'H', 'J', 'K', 'L', ';', '\'', '`', '?', '\\', 'Z', 'X', 'C', 'V', 
-    'B', 'N', 'M', ',', '.', '/', '?', '?', '?', ' '
+    '7', '8', '9', '0', '-', '=', '?', '?', 'q', 'w', 'e', 'r', 't', 'y', 
+    'u', 'i', 'o', 'p', '[', ']', '?', '?', 'a', 's', 'd', 'f', 'g', 
+    'h', 'j', 'k', 'l', ';', '\'', '`', '?', '\\', 'z', 'x', 'c', 'v', 
+    'b', 'n', 'm', ',', '.', '/', '?', '?', '?', ' '
+};
+
+const char sc_upper[] = {
+    '?', '?', '!', '@', '#', '$', '%', '^',     
+    '&', '*', '(', ')', '_', '+', '?', '?', 'Q', 'W', 'E', 'R', 'T', 'Y', 
+    'U', 'I', 'O', 'P', '{', '}', '?', '?', 'A', 'S', 'D', 'F', 'G', 
+    'H', 'J', 'K', 'L', ':', '\"', '~', '?', '|', 'Z', 'X', 'C', 'V', 
+    'B', 'N', 'M', '<', '>', '?', '?', '?', '?', ' '
 };
 
 // Called whenever IRQ1 occurs
@@ -46,6 +58,14 @@ static void keyboard_callback(registers_t regs) {
     u8 scancode = inb(0x60);
 
     // Handle input
+    if (scancode == LSHIFT || scancode == RSHIFT) {
+        isShift = 1;
+        return;
+    } else if (scancode == LSHIFT + 0x80 || scancode == RSHIFT + 0x80) {
+        isShift = 0;
+        return;
+    }
+
     if (scancode > SC_MAX) {
         return;
     }
@@ -65,7 +85,13 @@ static void keyboard_callback(registers_t regs) {
         key_buffer[0] = '\0';        // Reset keybuffer
         return;
     } else {
-        char letter = sc_ascii[(int)scancode];
+        char letter;
+        if (isShift == 0) {
+            letter = sc_lower[(int)scancode];
+        } else {
+            letter = sc_upper[(int)scancode];
+        }
+
         char str[2] = {letter, '\0'};
         append(key_buffer, letter);
         tprint(str);
