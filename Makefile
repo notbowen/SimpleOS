@@ -19,13 +19,13 @@ kernel.elf: boot/kernel_entry.o ${OBJ}
 run: os-image.bin
 	qemu-system-i386 -fda os-image.bin
 
-iso_run: img
+iso_run: iso
 	qemu-system-i386 -boot d -cdrom os.iso -m 512
 
 debug: os-image.bin kernel.elf
 	qemu-system-i386 -fda os-image.bin -gdb tcp::1234 -S
 
-img: os-image.bin os.img
+iso: os-image.bin os.img
 	cp os.img iso/
 	genisoimage -quiet -V 'SimpleOS' -input-charset iso8859-1 -o os.iso -b os.img -hide os.img iso/
 
