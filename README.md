@@ -3,7 +3,8 @@ Simple OS, does nothing.
 
 ## Todo:
 1. Move shell handling to a new folder called "shell"
-2. Implement tokenization and parse commands by tokenizing them
+2. Handle empty/space commands
+3. Implement tokenization and parse commands by tokenizing them
 
 ## Planned Features
 ✅ Print to screen
