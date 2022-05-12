@@ -3,8 +3,6 @@
 
 void int_to_char(int num, char arr[]);
 void reverse(char str[]);
-void back(char arr[]);
-void append(char arr[], char c);
 void slice(char str[], char out[], int start, int end);
 
 int strlen(char str[]);

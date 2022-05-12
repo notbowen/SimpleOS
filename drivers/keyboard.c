@@ -7,6 +7,7 @@
 
 #include "../libc/mem.h"
 #include "../libc/string.h"
+#include "../libc/array.h"
 #include "../libc/function.h"
 
 #include "../kernel/kernel.h"

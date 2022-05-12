@@ -28,19 +28,6 @@ void reverse(char str[]) {
     }
 }
 
-// Appends to char array
-void append(char arr[], char c) {
-    int len = strlen(arr);
-    arr[len] = c;
-    arr[len+1] = '\0';
-}
-
-// Removes end of char array
-void back(char arr[]) {
-    int len = strlen(arr);
-    arr[len-1] = '\0';
-}
-
 // Slices string from start to end
 void slice(char str[], char out[], int start, int end) {
     int j = 0;
