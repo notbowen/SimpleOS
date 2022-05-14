@@ -22,6 +22,9 @@ run: os-image.bin
 iso_run: iso
 	qemu-system-i386 -boot d -cdrom os.iso -m 512
 
+bochs: iso
+	echo "c" | bochs -f bochsrc.bxrc -q
+
 debug: os-image.bin kernel.elf
 	qemu-system-i386 -fda os-image.bin -gdb tcp::1234 -S
 
