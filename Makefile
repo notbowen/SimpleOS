@@ -1,5 +1,5 @@
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c libc/*.c cpu/*.c)
-HEADERS = $(wildcard kernel/*.h drivers/*.h libc/*.h cpu/*.h)
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c libc/*.c cpu/*.c programs/*.c)
+HEADERS = $(wildcard kernel/*.h drivers/*.h libc/*.h cpu/*.h programs/*.h)
 
 OBJ = $(C_SOURCES:.c=.o cpu/interrupt.o)
 
@@ -48,5 +48,5 @@ os.img: os-image.bin
 
 clean:
 	rm -rf *.bin *.dis *.o *.elf os-image.bin
-	rm -rf kernel/*.o boot/*.bin drivers/*.o boot/*.o cpu/*.o libc/*.o
+	rm -rf kernel/*.o boot/*.bin drivers/*.o boot/*.o cpu/*.o libc/*.o programs/*.o
 	rm -rf *.img iso/*.img
