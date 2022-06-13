@@ -23,6 +23,11 @@ void shell_input(char* input) {
         asm volatile("hlt");
     }
 
+    if (strcmp(input, "") == 0 || isEmpty(input)) {
+        tprint("> ");
+        return;
+    }
+
     char cmd[4];
     slice(input, cmd, 0, 3);
 

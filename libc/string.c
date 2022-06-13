@@ -37,6 +37,16 @@ void slice(char str[], char out[], int start, int end) {
     out[j] = '\0';
 }
 
+// Checks if string is made of whitespaces
+int isEmpty(char str[]) {
+    for (int i =0; i < strlen(str); i++) {
+        if (str[i] != ' ') {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 // Get length of string
 int strlen(char str[]) {
     int i = 0;
