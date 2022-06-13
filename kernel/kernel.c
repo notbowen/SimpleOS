@@ -1,6 +1,7 @@
 #include "../drivers/screen.h"
 #include "../cpu/isr.h"
 #include "../libc/string.h"
+#include "../programs/snake.h"
 
 void main() {
     clear_screen();
@@ -48,11 +49,20 @@ void shell_input(char* input) {
         end_shell();
         return;
     } 
-    
-    char cmd2[3];
-    slice(input, cmd2, 0, 2);
 
-    if (strcmp(cmd2, "cls") == 0) {
+    char cmd2[5];
+    slice(input, cmd2, 0, 4);
+
+    if (strcmp(cmd2, "snake") == 0) {
+        snake_main();
+        end_shell();
+        return;
+    }
+    
+    char cmd3[3];
+    slice(input, cmd3, 0, 2);
+
+    if (strcmp(cmd3, "cls") == 0) {
         clear_screen();
         tprint("> ");
         return;

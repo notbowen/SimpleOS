@@ -14,14 +14,22 @@ static void timer_callback(registers_t regs) {
 
     // Bypass unused param warning
     UNUSED(regs);
+}
 
-    /* To check if tick works */
-    // tprint("Tick: ");
+// Sleep for given ticks
+void sleep(u32 ticks) {
+    u32 endingTick = tick + ticks;
 
-    // char tick_str[256];
-    // int_to_char(tick, tick_str);
-    // tprint(tick_str);
-    // tprint("\n");
+    while (tick < endingTick) {
+        // PASS
+    }
+
+    return;
+}
+
+// Get current tick
+u32 getCurrentTick() {
+    return tick;
 }
 
 // Initialises timer at specified frequency

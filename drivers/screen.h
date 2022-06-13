@@ -23,5 +23,6 @@ void clear_screen();
 void tprint_char(char c);
 void tprint_backspace();
 void tprint(char str[]);
+void move_cursor(int pos);
 
 #endif

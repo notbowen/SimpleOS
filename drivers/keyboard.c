@@ -21,6 +21,7 @@ void tprint_scancode(u8 scancode);
 #define LSHIFT    0x2A
 #define RSHIFT    0x36
 
+static int inProgram = 0;
 static int isShift = 0;
 
 static char key_buffer[1024];
@@ -52,10 +53,16 @@ const char sc_upper[] = {
     'B', 'N', 'M', '<', '>', '?', '?', '?', '?', ' '
 };
 
+u8 lastPressed;
+
 // Called whenever IRQ1 occurs
 static void keyboard_callback(registers_t regs) {
     // Scancode from keyboard is in 0x60
     u8 scancode = inb(0x60);
+    lastPressed = scancode;
+
+    // ACK interrupt
+    outb(0x20, 0x20);
 
     // Handle special keys
     if (scancode == LSHIFT || scancode == RSHIFT) {
@@ -70,43 +77,54 @@ static void keyboard_callback(registers_t regs) {
         return;
     }
 
-    if (scancode == BACKSPACE) {
-        // Move behind if there is still stuff in keybuffer (to prevent erasing terminal output)
-        if (strlen(key_buffer) > 0) {
-            tprint_backspace();
-            back(key_buffer);
+    // If in shell mode
+    if (inProgram == 0) {
+
+        if (scancode == BACKSPACE) {
+            // Move behind if there is still stuff in keybuffer (to prevent erasing terminal output)
+            if (strlen(key_buffer) > 0) {
+                tprint_backspace();
+                back(key_buffer);
+            }
+            return;
         }
-        return;
-    }
 
-    // Handle \n
-    if (scancode == ENTER) {
-        tprint("\n");
-        shell_input(key_buffer);
-        key_buffer[0] = '\0';        // Reset keybuffer
-        return;
-    } 
+        // Handle \n
+        if (scancode == ENTER) {
+            tprint("\n");
+            inProgram = 1;
+            shell_input(key_buffer);
+            inProgram = 0;
+            key_buffer[0] = '\0';        // Reset keybuffer
+            return;
+        } 
 
-    // Prevent key buffer overflow
-    if (strlen(key_buffer) >= 1023) {
-        return;
-    } else {
-        // Handle normal keys
-        char letter;
-        if (isShift == 0) {
-            letter = sc_lower[(int)scancode];
+        // Prevent key buffer overflow
+        if (strlen(key_buffer) >= 1023) {
+            return;
         } else {
-            letter = sc_upper[(int)scancode];
-        }
+            // Handle normal keys
+            char letter;
+            if (isShift == 0) {
+                letter = sc_lower[(int)scancode];
+            } else {
+                letter = sc_upper[(int)scancode];
+            }
 
-        char str[2] = {letter, '\0'};
-        append(key_buffer, letter);
-        tprint(str);
-        return;
+            char str[2] = {letter, '\0'};
+            append(key_buffer, letter);
+            tprint(str);
+            return;
+        }
     }
 
     // Bypass unused param warning
     UNUSED(regs);
+}
+
+// Get last key pressed
+char getKeyPressed() {
+    return lastPressed;
 }
 
 // Init keyboard_callback to IRQ1
