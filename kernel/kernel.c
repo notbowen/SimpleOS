@@ -38,7 +38,9 @@ void shell_input(char* input) {
         tprint(output);
         end_shell();
         return;
-    } else if (strcmp(cmd, "help") == 0) {
+    } 
+    
+    if (strcmp(cmd, "help") == 0) {
         tprint("===== HELP =====\n");
         tprint("1. echo {msg}: Prints {msg} to the screen.\n");
         tprint("2. cls: Clears the screen.\n");
