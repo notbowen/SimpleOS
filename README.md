@@ -1,10 +1,10 @@
 # SimpleOS
 Simple OS, does nothing.
 
-## Todo:
-1. Move shell handling to a new folder called "shell"
-2. Handle empty/space commands
-3. Implement tokenization and parse commands by tokenizing them
+## Download and Run:
+1. Download `os.iso`
+2. Install `qemu` from [here](https://www.qemu.org/download/)
+3. Run with `qemu_system_x86-64 -boot d -cdrom os.iso -m 512`
 
 ## Planned Features
 ✅ Print to screen
