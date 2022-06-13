@@ -2,5 +2,4 @@
 *.bin
 .vscode
 *.elf
-*.iso
 *.img
