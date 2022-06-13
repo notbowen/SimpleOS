@@ -11,7 +11,7 @@
 
 int gameOver;
 
-const int width = 20;
+const int width = 40;
 const int height = 20;
 
 int x, y, fruitX, fruitY, score;
@@ -30,6 +30,7 @@ void Setup() {
 
     x = width / 2;
     y = height / 2;
+    nTail = 0;
 
     fruitX = rand() % width;
     fruitY = rand() % height;
@@ -89,9 +90,7 @@ void Draw() {
     tprint(scoreOutput);
     tprint("\n");
 
-    tprint("[DEBUG] Key pressed: ");
-    tprint_char(lastPressed);
-    tprint("\n");
+    tprint("[HELP] Movement: WASD, Quit: Q\n");
 
     tprint("[DEBUG] Current Tick: ");
     char tickOutput[256];
@@ -129,7 +128,7 @@ void Logic() {
     tailX[0] = x;
     tailY[0] = y;
 
-    for (int i = 0; i < nTail; i++) {
+    for (int i = 1; i < nTail; i++) {
         prev2X = tailX[i];
         prev2Y= tailY[i];
 
@@ -183,7 +182,7 @@ void snake_main() {
         Input();
         Logic();
 
-        sleep(10);
+        sleep(5);
 
         // 1 in 5 chance of changing seed
         if (rand() % 5 == 1) {
@@ -191,8 +190,6 @@ void snake_main() {
             srand(seed);
         }
     }
-    
-    gameOver = 0;  // Reset game state
 
     clear_screen();
     tprint("End of game :D\nReturning to shell...");
