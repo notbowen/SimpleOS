@@ -90,7 +90,7 @@ void Draw() {
     tprint(scoreOutput);
     tprint("\n");
 
-    tprint("[HELP] Movement: WASD, Quit: Q\n");
+    tprint("[HELP] O: Player | F: Food | Movement: WASD | Quit: Q\n");
 
     tprint("[DEBUG] Current Tick: ");
     char tickOutput[256];
