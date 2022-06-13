@@ -9,6 +9,11 @@ This is a bare metal operating system that I made in hopes of having a deeper un
 2. Install `qemu` from [here](https://www.qemu.org/download/)
 3. Run with `qemu_system_x86-64 -boot d -cdrom os.iso -m 512`
 
+
+## Showcase
+https://user-images.githubusercontent.com/85286288/173368881-c93ced3e-a604-4a5d-99aa-84b304b8965a.mp4
+
+
 ## Planned Features
 ✅ Print to screen
 
