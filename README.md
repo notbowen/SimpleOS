@@ -1,5 +1,6 @@
 # SimpleOS
-Simple OS, does nothing.
+Simple OS, has `echo` and `snake`.
+This is a bare metal operating system that I made in hopes of having a deeper understanding of operating system fundamentals. It wasn't easy doing this project, and I faced many bugs. To make matters worse, there were limited resources on the internet, and I had trouble finding most of my issues. However, I have really learnt a lot from this project and it has indeed helped me understand operating systems better.
 
 ## Download and Run:
 1. Download `os.iso`
