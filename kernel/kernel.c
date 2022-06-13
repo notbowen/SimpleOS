@@ -45,7 +45,8 @@ void shell_input(char* input) {
         tprint("===== HELP =====\n");
         tprint("1. echo {msg}: Prints {msg} to the screen.\n");
         tprint("2. cls: Clears the screen.\n");
-        tprint("3. end: Halts the CPU.");
+        tprint("3. end: Halts the CPU.\n");
+        tprint("4. snake: Snake game :D");
         end_shell();
         return;
     } 
