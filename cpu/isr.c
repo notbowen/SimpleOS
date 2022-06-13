@@ -117,15 +117,15 @@ char* exception_messages[] = {
 
 // Handle interrupt
 void isr_handler(registers_t r) {
-    tprint("Received interrupt: ");
+    clear_screen();
+
+    tprint("[FATAL] Received interrupt: ");
     char s[4];
     int_to_char(r.int_no, s);
     tprint(s);
     tprint("\n");
 
-    // tprint("Exception Message: ");
-    // tprint(exception_messages[r.int_no]);
-    // tprint("\n");
+    asm volatile ("hlt");
 }
 
 // Register interrupt handler
@@ -140,17 +140,13 @@ void irq_handler(registers_t r) {
         handler(r);
     }
 
+    // Handle keyboard ACK seperately
+    if (r.int_no == 33)
+        return;
+
     // After every interrupt we much ACK it
     if (r.int_no > 40) outb(0xA0, 0x20);
     outb(0x20, 0x20);
-
-    // if (r.int_no == IRQ1) {
-    //     u8 sc = inb(0x60);
-    //     char string_sc[8];
-    //     int_to_char(sc, string_sc);
-    //     tprint(string_sc);
-    //     tprint("\n");
-    // }
 }
 
 // Installs IRQ
