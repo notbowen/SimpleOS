@@ -181,7 +181,7 @@ void snake_main() {
         Input();
         Logic();
 
-        sleep(5);
+        sleep(10);
 
         // 1 in 5 chance of changing seed
         if (rand() % 5 == 1) {
