@@ -101,15 +101,23 @@ void Draw() {
 void Input() {
     switch (lastPressed) {
         case LEFT:
+            if (dir == 2)
+                break;
             dir = 1;
             break;
         case RIGHT:
+            if (dir == 1)
+                break;
             dir = 2;
             break;
         case UP:
+            if (dir == 4)
+                break;
             dir = 3;
             break;
         case DOWN:
+            if (dir == 3)
+                break;
             dir = 4;
             break;
         case 0x10:     // Q
@@ -191,6 +199,13 @@ void snake_main() {
     }
 
     clear_screen();
+
+    char scoreOutput[32];
+    int_to_char(score, scoreOutput);
+    tprint("Final Score: ");
+    tprint(scoreOutput);
+    tprint("\n");
     tprint("End of game :D\nReturning to shell...");
+
     return;
 }
